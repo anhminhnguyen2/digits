@@ -1,10 +1,11 @@
 'use client';
 
-import { Card, Image } from 'react-bootstrap';
-import { Contact } from '@prisma/client';
+import { Card, Image, ListGroup } from 'react-bootstrap';
+import { Note, Contact } from '@prisma/client';
+import NoteItem from '@/components/NoteItem';
 
 /* Renders a single row in the List Stuff table. See list/page.tsx. */
-const ContactCardAdmin = ({ contact }: { contact: Contact }) => (
+const ContactCardAdmin = ({ contact, notes }: { contact: Contact, notes: Note[] }) => (
   <Card className="h-100">
     <Card.Header>
       <Image src={contact.image} width={75} />
@@ -21,6 +22,10 @@ const ContactCardAdmin = ({ contact }: { contact: Contact }) => (
       <Card.Text>
         {contact.description}
       </Card.Text>
+      <ListGroup variant="flush">
+        {notes.map((note) => <NoteItem key={note.id} note={note} />)}
+      </ListGroup>
+
       {/* <p className="blockcode-footer">{contact.owner}</p> */}
       <p className="text-muted small m-0">
         —
